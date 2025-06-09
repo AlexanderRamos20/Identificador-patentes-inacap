@@ -1,5 +1,32 @@
 import {Api_token, Api_url} from "./config.js";
 
+var alumnos = [
+      {
+    "nombre": "Valentina Soto",
+    "rut": "19.435.782-1",
+    "carrera": "Ing. en electricidad",
+    "patente": "KKXD69"
+  },
+  {
+    "nombre": "Tomás Herrera",
+    "rut": "20.137.594-3",
+    "carrera": "Mecánica",
+    "patente": "CPWG10"
+  },
+  {
+    "nombre": "Camilo Rivas",
+    "rut": "21.034.812-7",
+    "carrera": "Ing. en informática",
+    "patente": "FRHV49"
+  },
+  {
+    "nombre": "Ignacio Fuentes",
+    "rut": "18.029.457-6",
+    "carrera": "Administración",
+    "patente": "JXPL21"
+  }
+];
+
 async function enviarImagen() {
     const input = document.getElementById('imagen-a-escanear');
     const file = input.files[0];
@@ -38,18 +65,27 @@ async function enviarImagen() {
 }
 
 function mostrarResultados(data) {
-    const resultadosDiv = document.getElementById('resultados-consulta-placa');
-    resultadosDiv.innerHTML = '';
+    const resultadosConsultaPlaca = document.getElementById('resultados-consulta-placa');
+    const resultadosConsultaBD = document.getElementById('resultados-consulta-bd');
+    resultadosConsultaPlaca.innerHTML = '';
+    resultadosConsultaBD.innerHTML = '';
 
     if (data.results && data.results.length > 0) {
         const resultado = data.results[0];
-        resultadosDiv.innerHTML = `
+        resultadosConsultaPlaca.innerHTML = `
             <h2>Resultado:</h2>
             <p><strong>Patente:</strong> ${resultado.plate}</p>
-            <p><strong>Región detectada:</strong> ${resultado.region.code}</p>
         `;
+        var correspondeAAlumno = alumnos.find(alumno => alumno.patente.toLowerCase() === resultado.plate);
+        if (correspondeAAlumno){
+            resultadosConsultaBD.innerHTML = `
+            <p><strong>Alumno:</strong> ${correspondeAAlumno.nombre}</p>
+            <p><strong>RUT:</strong> ${correspondeAAlumno.rut}</p>
+            <p><strong>Carrera:</strong> ${correspondeAAlumno.carrera}</p>
+            `;
+        } else {resultadosConsultaBD.innerHTML = 'Patente no vinculada a ningún alumno.'}
     } else {
-        resultadosDiv.innerHTML = '<p>No se detectó ninguna patente en la imagen.</p>';
+        resultadosConsultaPlaca.innerHTML = '<p>No se detectó ninguna patente en la imagen.</p>';
     }
 }
 
