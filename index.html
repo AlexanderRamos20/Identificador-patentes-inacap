@@ -1,21 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prototipo </title>
+    <title>Reconoce Patentes</title>
+    <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-    <h1>Reconoce patentes</h1>
-    <input type="file" name="imagen-a-escanear" id="imagen-a-escanear" accept="image/*">
-    <button id="enviar">Consultar</button>
+    <div class="container">
+        <h1>Reconoce Patentes</h1>
 
-    <div class="resultados-consulta-placa" id="resultados-consulta-placa">
+        <div class="upload-section">
+            <div class="file-input-wrapper">
+                <input type="file" name="imagen-a-escanear" id="imagen-a-escanear" accept="image/*">
+                <div class="file-input-button" id="file-button">
+                     Seleccionar imagen
+                </div>
+                <span class="file-name" id="file-name">Ningún archivo seleccionado</span>
+            </div>
+            <button id="enviar" disabled>Consultar</button>
+        </div>
+
+        <div class="resultados-consulta-placa" id="resultados-consulta-placa">
+            <h2>Resultado del Análisis</h2>
+            <div class="imagen-placeholder" id="analysis-result">
+                Las imágenes analizadas aparecerán aquí
+            </div>
+            <!-- Contenedor de datos de la patente -->
+            <div id="placa-info"></div>
+        </div>
+
+        <div class="resultados-consulta-bd" id="resultados-consulta-bd">
+            <h2>Información de la Base de Datos</h2>
+            <div class="imagen-placeholder" id="database-result">
+                Los datos de la patente aparecerán aquí
+            </div>
+        </div>
     </div>
 
-    <div class="resultados-consulta-bd" id="resultados-consulta-bd">
-    </div>
-    
-    <script type="module" src="scripts/script.js"></script>
+    <script src="scripts/script.js" type="module"></script>
 </body>
 </html>
